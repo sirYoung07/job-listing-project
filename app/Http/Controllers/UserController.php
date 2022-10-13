@@ -11,6 +11,7 @@ class UserController extends Controller
     public function showRegisterForm(){
         return view('register');
     }
+
     public function store(Request $request){
         $formFields = $request->validate([
             'name' => 'required',
@@ -19,9 +20,9 @@ class UserController extends Controller
         ]);
         $formFields['password'] = bcrypt($formFields['password']);
         $user = User::create($formFields);
-        //auth()->login($user);
         return redirect('/login');
     }
+
     public function logout(Request $request){
         auth()->logout();
         $request->session()->invalidate();
@@ -38,7 +39,14 @@ class UserController extends Controller
         ]);
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
-            return redirect('/');
+                
+            $role = Auth()->user()->role;
+            
+            if ($role == 0) {
+                return redirect('/');
+            }else {
+                return view('admin');
+            } 
         }
         return back()->withErrors(['email'=>'invalid credentials'])->onlyInput('email');
     }

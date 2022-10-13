@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\ListingController;
-use App\Http\Controllers\UserController;
 use App\Models\Listing;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,6 @@ Route::get('/listings/{listing}', [ListingController::class, 'showSingle']);
 Route::get('/manage', [ListingController::class, 'showManage'])->middleware('auth');
 
 
-
 Route::post('/users', [UserController::class, 'store']); 
 
 Route::get('/register', [UserController::class, 'showRegisterForm'])->middleware('guest');
@@ -44,6 +43,7 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login')->middleware('guest');
 
 Route::post('/user/authenticate', [UserController::class, 'authenticate']);
+
 
 
 
