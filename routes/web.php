@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [ListingController::class, 'showAll']);
 
 Route::post('/create' , [ListingController::class, 'store'])->middleware('auth');
@@ -32,7 +33,10 @@ Route::get('/listings/{listing}', [ListingController::class, 'showSingle']);
 
 Route::get('/manage', [ListingController::class, 'showManage'])->middleware('auth');
 
+
+
 Route::post('/users', [UserController::class, 'store']); 
+
 Route::get('/register', [UserController::class, 'showRegisterForm'])->middleware('guest');
 
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');

@@ -12,10 +12,12 @@ use Database\Factories\ListingFactory;
 class ListingController extends Controller
 {
     public function showAll(){
+        
         return view('listings', [
             'headings'=> 'Latest listings',
             'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(3)
             ]
+            
         );
     }
 
@@ -80,7 +82,7 @@ class ListingController extends Controller
             'listing' => $listing
         ]);
     }
-
+        
     public function delete(Listing $listing){
         if ($listing->user_id == auth()->id()) {
             
